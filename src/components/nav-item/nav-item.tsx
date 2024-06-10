@@ -1,11 +1,10 @@
-import { useLocation } from 'react-router-dom'
-import clsx from 'clsx';
-import { Link } from 'react-router-dom';
-
+import { useLocation } from "react-router-dom";
+import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 export const NavItem = ({
   href,
-  children
+  children,
 }: {
   href: string;
   children: React.ReactNode;
@@ -16,13 +15,14 @@ export const NavItem = ({
     <Link
       to={href}
       className={clsx(
-        'flex items-center gap-3 rounded-lg  px-3 py-2 my-[0.5px] text-gray-900  transition-all hover:text-gray-900  dark:text-gray-50 dark:hover:text-gray-50 dark:hover:bg-gray-800',
+        "flex items-center gap-3 rounded-lg  px-3 py-2 my-[0.5px] dark:hover:text-primary",
         {
-          'bg-gray-100 dark:bg-gray-800': route.pathname === href
+          "bg-gray-100 dark:bg-muted/30 dark:text-primary":
+            route.pathname === href,
         }
       )}
     >
       {children}
     </Link>
   );
-}
+};
