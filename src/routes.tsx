@@ -6,7 +6,6 @@ export const routes: RouteObject[] = [
   {
     path: "/",
     lazy: () => import("./components/global-layout/global-layout"),
-    errorElement: <NotFoundPage />,
     children: [
       {
         lazy: () => import("./components/app-layout/app-layout"),
