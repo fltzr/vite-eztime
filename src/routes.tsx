@@ -1,4 +1,4 @@
-import { RouteObject, createBrowserRouter } from "react-router-dom";
+import { Navigate, RouteObject, createBrowserRouter } from "react-router-dom";
 import { requireAuthLoader } from "./utils/require-auth-loader";
 
 export const routes: RouteObject[] = [
@@ -10,6 +10,10 @@ export const routes: RouteObject[] = [
         lazy: () => import("./components/app-layout/app-layout"),
         loader: requireAuthLoader,
         children: [
+          {
+            index: true,
+            element: <Navigate to="/time" />,
+          },
           {
             path: "time",
             lazy: () => import("./pages/time-log/page"),
