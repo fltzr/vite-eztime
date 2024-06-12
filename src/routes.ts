@@ -11,13 +11,6 @@ export const routes: RouteObject[] = [
         loader: requireAuthLoader,
         children: [
           {
-            index: true,
-            lazy: () => import("./pages/home/page"),
-            handle: {
-              title: "Home",
-            },
-          },
-          {
             path: "time",
             lazy: () => import("./pages/time-log/page"),
             handle: {

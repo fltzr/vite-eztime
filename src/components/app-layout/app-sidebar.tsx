@@ -1,5 +1,5 @@
-import { GearIcon, CountdownTimerIcon, HomeIcon } from '@radix-ui/react-icons';
-import { NavItem } from '../nav-item/nav-item'
+import { GearIcon, CountdownTimerIcon } from "@radix-ui/react-icons";
+import { NavItem } from "../nav-item/nav-item";
 
 export const AppSidebar = () => {
   return (
@@ -7,10 +7,6 @@ export const AppSidebar = () => {
       <div className="flex h-full max-h-screen flex-col gap-2">
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-1 text-sm font-medium">
-            <NavItem href="/">
-              <HomeIcon className="h-4 w-4" />
-              Home
-            </NavItem>
             <NavItem href="/time">
               <CountdownTimerIcon className="h-4 w-4" />
               Time log
@@ -24,4 +20,4 @@ export const AppSidebar = () => {
       </div>
     </div>
   );
-}
+};
