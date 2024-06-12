@@ -90,7 +90,7 @@ export function UpdateEntrySheet({
         props.onOpenChange?.(open);
       }}
     >
-      <SheetContent className="flex flex-col gap-6 sm:max-w-md">
+      <SheetContent className="flex flex-col gap-6 sm:max-w-md overflow-y-scroll max-h-screen">
         <SheetHeader className="text-left">
           <SheetTitle>Update timeLogEntry</SheetTitle>
           <SheetDescription>

@@ -97,7 +97,7 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
       <SheetTrigger asChild>
         <Button onClick={() => families.refetch()}>Add time log entry</Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col gap-6 sm:max-w-md">
+      <SheetContent className="flex flex-col gap-6 sm:max-w-md overflow-y-scroll max-h-screen">
         <SheetHeader className="text-left">
           <SheetTitle>Create time log entry</SheetTitle>
           <SheetDescription>
