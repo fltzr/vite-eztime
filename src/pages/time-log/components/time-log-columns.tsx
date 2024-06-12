@@ -21,15 +21,12 @@ const getAmountEarned = (
   const differenceInMins = differenceInMinutes(endDate, startDate);
 
   // Convert minutes to hours and minutes
-  let hours = Math.floor(differenceInMins / 60);
+  const hours = Math.floor(differenceInMins / 60);
   const minutes = differenceInMins % 60;
 
-  // We are assuming that if the minutes are greater than 30, the amount earned is for an additional hour
-  if (minutes > 30) {
-    hours += 1;
-  }
+  const amountEarned = hours * hourlyRate + (minutes / 60) * hourlyRate;
 
-  return hours * hourlyRate;
+  return amountEarned.toFixed(2);
 };
 
 export const columns: ColumnDef<TimeLog>[] = [

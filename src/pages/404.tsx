@@ -5,7 +5,7 @@ import {
   CardFooter,
   CardTitle,
 } from "@/components/ui/card";
-import { AlignLeftIcon } from "lucide-react";
+import { ArrowLeftIcon } from "lucide-react";
 
 export const NotFoundPage = () => {
   return (
@@ -22,7 +22,7 @@ export const NotFoundPage = () => {
               window.history.back();
             }}
           >
-            <AlignLeftIcon className="mr-2 h-4 w-4" />
+            <ArrowLeftIcon className="mr-2 h-4 w-4" />
             Go back
           </Button>
         </CardFooter>
