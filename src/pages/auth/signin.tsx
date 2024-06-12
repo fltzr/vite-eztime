@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../components/ui/card";
+} from "@/components/ui/card";
 import { SigninForm } from "./components/signin-form";
 import { useSubmitSignin } from "./data-access/auth";
 import { SigninFormSchema } from "./schema";
