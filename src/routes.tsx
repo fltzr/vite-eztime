@@ -1,14 +1,17 @@
 import { Navigate, RouteObject, createBrowserRouter } from "react-router-dom";
 import { requireAuthLoader } from "./utils/require-auth-loader";
+import { NotFoundPage } from "./pages/404";
 
 export const routes: RouteObject[] = [
   {
     path: "/",
     lazy: () => import("./components/global-layout/global-layout"),
+    errorElement: <NotFoundPage />,
     children: [
       {
         lazy: () => import("./components/app-layout/app-layout"),
         loader: requireAuthLoader,
+        errorElement: <NotFoundPage />,
         children: [
           {
             index: true,
