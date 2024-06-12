@@ -1,4 +1,3 @@
-import { useToast } from "../../components/ui/use-toast";
 import {
   Card,
   CardContent,
@@ -11,9 +10,9 @@ import { useSubmitSignin } from "./data-access/auth";
 import { SigninFormSchema } from "./schema";
 import { useAuthStore } from "src/store/use-auth-store";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const AuthSigninPage = () => {
-  const { toast } = useToast();
   const navigate = useNavigate();
 
   const { setUser } = useAuthStore();
@@ -27,26 +26,18 @@ const AuthSigninPage = () => {
       .mutateAsync(data)
       .then(({ data: userData, error }) => {
         if (error) {
-          toast({
-            variant: "destructive",
-            title: "Coucou!",
-            description: "Juliette... is that you? 🤔",
-          });
+          toast.success(<span>Coucou! Juliette... is that you? 🤔</span>);
 
           return;
         }
 
-        toast({ variant: "default", title: "Welcome back! 🎉" });
-
+        toast.success("Welcome back BABY! 🎉");
+        ``;
         setUser(userData.user);
         navigate("/");
       })
       .catch(() => {
-        toast({
-          variant: "destructive",
-          title: "Oops!",
-          description: "Something went wrong.",
-        });
+        toast.error("Failed to sign in... 😢 Let Josh know!");
       });
   };
 
