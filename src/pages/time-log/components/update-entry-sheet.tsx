@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,10 +35,10 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { timeLogSchema, type TimeLog } from "../schema";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
 import { useUpdateTimeLogEntry } from "../data-access/time-log";
 import { useGetFamilies } from "../data-access/family";
 import { useEffectOnce } from "react-use";
+import { toast } from "sonner";
 
 interface UpdateEntrySheetProps
   extends React.ComponentPropsWithRef<typeof Sheet> {
@@ -48,7 +49,6 @@ export function UpdateEntrySheet({
   timeLogEntry,
   ...props
 }: UpdateEntrySheetProps) {
-  const { toast } = useToast();
   const [isUpdatePending] = React.useTransition();
   const [isAddingNewFamily, setIsAddingNewFamily] = React.useState(false);
   const [newFamily, setNewFamily] = React.useState("");
@@ -69,25 +69,32 @@ export function UpdateEntrySheet({
     const { error } = await updateTimeLogEntry.mutateAsync(input);
 
     if (error) {
-      toast({
-        variant: "destructive",
-        title: "Failed to update time log entry 😔. Please let Josh know!",
-      });
+      toast.error("Failed to update time log entry 😔. Please let Josh know!");
       return;
     }
 
     form.reset();
     props.onOpenChange?.(false);
-    toast({ title: "Time log entry updated successfully! 🎉" });
+    toast("Time log entry updated successfully! 🎉");
   };
 
   return (
-    <Sheet {...props}>
+    <Sheet
+      {...props}
+      onOpenChange={(open) => {
+        if (!open) {
+          form.reset();
+          setIsAddingNewFamily(false);
+          setNewFamily("");
+        }
+        props.onOpenChange?.(open);
+      }}
+    >
       <SheetContent className="flex flex-col gap-6 sm:max-w-md">
         <SheetHeader className="text-left">
           <SheetTitle>Update timeLogEntry</SheetTitle>
           <SheetDescription>
-            Update the timeLogEntry details and save the changes
+            Update the time log details and save the changes.
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
@@ -104,6 +111,22 @@ export function UpdateEntrySheet({
                   <FormControl>
                     <Input {...field} type="date" />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="hourlyRate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>(€) Hourly rate</FormLabel>
+                  <FormDescription>
+                    The anticipated hourly rate for this time log entry, in
+                    euros. Don't worry if you are not sure, you can adjust this
+                    value later.
+                  </FormDescription>
+                  <Input {...field} type="number" />
                   <FormMessage />
                 </FormItem>
               )}
@@ -138,7 +161,6 @@ export function UpdateEntrySheet({
                   <FormLabel>Family</FormLabel>
                   <Select
                     onValueChange={(value) => {
-                      console.log(`value`, value);
                       if (value === "new") {
                         setIsAddingNewFamily(true);
                       } else {

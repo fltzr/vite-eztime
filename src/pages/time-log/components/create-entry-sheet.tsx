@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -80,9 +81,15 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
       return;
     }
 
-    form.reset();
-    props.onOpenChange?.(false);
-    toast.success("Time log entry updated successfully! 🎉");
+    form.reset({
+      date: format(new Date(), "yyyy-MM-dd"),
+      startTime: "",
+      endTime: "",
+      family: "",
+      notes: "",
+    });
+
+    toast.success("Time log entry added successfully! 🎉");
   };
 
   return (
@@ -92,9 +99,9 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
       </SheetTrigger>
       <SheetContent className="flex flex-col gap-6 sm:max-w-md">
         <SheetHeader className="text-left">
-          <SheetTitle>Update timeLogEntry</SheetTitle>
+          <SheetTitle>Create time log entry</SheetTitle>
           <SheetDescription>
-            Update the timeLogEntry details and save the changes
+            Use the form below to create a new time log entry.
           </SheetDescription>
         </SheetHeader>
         <Form {...form}>
@@ -116,10 +123,29 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               name="date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Date</FormLabel>
+                  <FormDescription>
+                    The date when the time log entry was created.
+                  </FormDescription>
                   <FormControl>
                     <Input {...field} type="date" />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="hourlyRate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>(€) Hourly rate</FormLabel>
+                  <FormDescription>
+                    The anticipated hourly rate for this time log entry, in
+                    euros. Don't worry if you are not sure, you can adjust this
+                    value later.
+                  </FormDescription>
+                  <Input {...field} type="number" />
                   <FormMessage />
                 </FormItem>
               )}
@@ -130,6 +156,9 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Start time</FormLabel>
+                  <FormDescription>
+                    The time when the time log entry started.
+                  </FormDescription>
                   <Input {...field} type="time" />
                   <FormMessage />
                 </FormItem>
@@ -141,6 +170,9 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>End time</FormLabel>
+                  <FormDescription>
+                    The time when the time log entry ended.
+                  </FormDescription>
                   <Input {...field} type="time" />
                   <FormMessage />
                 </FormItem>
@@ -152,6 +184,10 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Family</FormLabel>
+                  <FormDescription>
+                    The family for which the time log entry was created. If the
+                    family is not listed, you can add a new family.
+                  </FormDescription>
                   <Select
                     onValueChange={(value) => {
                       console.log(`value`, value);
@@ -200,7 +236,12 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
                       <Input
                         placeholder="Enter new family name"
                         value={newFamily}
-                        onChange={(e) => setNewFamily(e.target.value)}
+                        onChange={(event) => {
+                          setNewFamily(event.target.value);
+                          field.onChange({
+                            target: { value: event.target.value },
+                          });
+                        }}
                       />
                     </div>
                   )}
@@ -214,6 +255,9 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Notes</FormLabel>
+                  <FormDescription>
+                    Any additional notes or comments about the time log entry.
+                  </FormDescription>
                   <Textarea {...field} />
                   <FormMessage />
                 </FormItem>
@@ -221,8 +265,20 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
             />
             <SheetFooter className="gap-2 pt-2 sm:space-x-0">
               <SheetClose asChild>
-                <div>
-                  <Button type="button" variant="outline">
+                <div className="w-full grid gap-6">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      form.reset({
+                        date: format(new Date(), "yyyy-MM-dd"),
+                        startTime: "",
+                        endTime: "",
+                        family: "",
+                        notes: "",
+                      });
+                    }}
+                  >
                     Cancel
                   </Button>
                   <Button
@@ -236,7 +292,7 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
                         aria-hidden="true"
                       />
                     )}
-                    Save
+                    Create
                   </Button>
                 </div>
               </SheetClose>

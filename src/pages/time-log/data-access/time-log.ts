@@ -3,10 +3,15 @@ import { supabase } from "@/utils/supabase-client";
 import type { CreateTimeLog, UpdateTimeLog } from "../schema";
 
 const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
-  const { id, startTime, endTime, ...rest } = entry;
+  const { id, hourlyRate, startTime, endTime, ...rest } = entry;
 
   // Convert startTime and endTime to start_time and end_time
   const transformedData: { [key: string]: unknown } = { ...rest };
+
+  if (hourlyRate) {
+    transformedData.hourly_rate_euros_cents = hourlyRate * 100;
+  }
+
   if (startTime) {
     transformedData.start_time = startTime;
   }
@@ -31,9 +36,10 @@ const getTimeLogEntries = async () => {
 };
 
 const createTimeLogEntry = async (entry: CreateTimeLog) => {
-  const { startTime, endTime, ...entryData } = entry;
+  const { hourlyRate, startTime, endTime, ...entryData } = entry;
   const dbEntry = {
     ...entryData,
+    hourly_rate_euros_cents: hourlyRate * 100,
     start_time: startTime,
     end_time: endTime,
   };
@@ -53,6 +59,12 @@ const updateTimeLogEntry = async (entry: UpdateTimeLog) => {
   return response;
 };
 
+const deleteTimeLogEntry = async (id: number) => {
+  const { error } = await supabase.from("time_log").delete().eq("id", id);
+
+  return error;
+};
+
 export const useGetTimeLogEntries = () =>
   useQuery({
     queryKey: ["time-log-entries"],
@@ -69,5 +81,11 @@ export const useCreateTimeLogEntry = () =>
 export const useUpdateTimeLogEntry = () =>
   useMutation({
     mutationFn: updateTimeLogEntry,
+    retry: false,
+  });
+
+export const useDeleteTimeLogEntry = () =>
+  useMutation({
+    mutationFn: deleteTimeLogEntry,
     retry: false,
   });

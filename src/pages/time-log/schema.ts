@@ -15,8 +15,10 @@ export const timeLogSchema = z.object({
   id: z.number(),
   date: z.string(),
   family: z.string(),
+  hourlyRate: z.coerce.number().default(0),
   startTime: z.string(),
   endTime: z.string(),
+  amountEarned: z.number().optional(),
   notes: z.string(),
   user_id: z.string(),
 });

@@ -15,6 +15,7 @@ export const TimeLogPage = () => {
     userId: entry.user_id,
     startTime: entry.start_time,
     endTime: entry.end_time,
+    hourlyRate: entry.hourly_rate_euros_cents / 100,
     notes: entry.notes ?? "",
   }));
 

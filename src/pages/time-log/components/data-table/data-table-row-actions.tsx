@@ -1,4 +1,4 @@
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { DotsHorizontalIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,9 @@ import {
   DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useDeleteTimeLogEntry } from "../../data-access/time-log";
+import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -31,20 +34,34 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
+  const queryClient = useQueryClient();
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateEntrySheet, setShowUpdateEntrySheet] = useState(false);
+  const deleteTimeLogEntry = useDeleteTimeLogEntry();
 
   const entry = timeLogSchema.parse(row.original);
 
-  const handleOnDelete = () => {
+  const handleOnDelete = async () => {
     console.log("Delete entry", entry);
+
+    try {
+      await deleteTimeLogEntry.mutateAsync(entry.id);
+
+      console.log("Entry deleted successfully!");
+      toast.info("Entry deleted successfully!");
+      setShowDeleteModal(false);
+    } catch (error) {
+      toast.error(`Failed to delete entry! Please try again!\n${error}`);
+    }
   };
 
   return (
     <>
       <UpdateEntrySheet
         open={showUpdateEntrySheet}
-        onOpenChange={setShowUpdateEntrySheet}
+        onOpenChange={(state) => {
+          setShowUpdateEntrySheet(state);
+        }}
         timeLogEntry={entry}
       />
       <Dialog
@@ -62,7 +79,12 @@ export function DataTableRowActions<TData>({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[160px]">
-            <DropdownMenuItem onSelect={() => setShowUpdateEntrySheet(true)}>
+            <DropdownMenuItem
+              onSelect={() => {
+                setShowUpdateEntrySheet(true);
+                queryClient.refetchQueries({ queryKey: ["families"] });
+              }}
+            >
               Edit
             </DropdownMenuItem>
             <DropdownMenuSeparator />
@@ -86,8 +108,19 @@ export function DataTableRowActions<TData>({
             </DialogDescription>
           </DialogContent>
           <DialogFooter>
-            <Button variant="destructive" onClick={handleOnDelete}>
-              Delete
+            <Button
+              disabled={deleteTimeLogEntry.isPending}
+              variant="destructive"
+              onClick={handleOnDelete}
+            >
+              {deleteTimeLogEntry.isPending ? (
+                <>
+                  <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+                  Deleting
+                </>
+              ) : (
+                <>Delete</>
+              )}
             </Button>
             <Button onClick={() => setShowDeleteModal(false)}>Cancel</Button>
           </DialogFooter>

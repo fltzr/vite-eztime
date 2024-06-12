@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { GlobalHeader } from "./global-header";
-import { Toaster } from "../ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 
 const GlobalLayout = () => {
   return (
