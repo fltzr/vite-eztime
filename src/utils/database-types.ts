@@ -33,6 +33,7 @@ export type Database = {
           date: string
           end_time: string
           family: string
+          hourly_rate_euros_cents: number
           id: number
           notes: string | null
           start_time: string
@@ -43,6 +44,7 @@ export type Database = {
           date?: string
           end_time: string
           family: string
+          hourly_rate_euros_cents?: number
           id?: number
           notes?: string | null
           start_time: string
@@ -53,6 +55,7 @@ export type Database = {
           date?: string
           end_time?: string
           family?: string
+          hourly_rate_euros_cents?: number
           id?: number
           notes?: string | null
           start_time?: string
