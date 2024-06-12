@@ -31,28 +31,42 @@ export type Database = {
         Row: {
           created_at: string
           date: string
-          duration: number
+          end_time: string
+          family: string
           id: number
           notes: string | null
+          start_time: string
           user_id: string
         }
         Insert: {
           created_at?: string
           date?: string
-          duration: number
+          end_time: string
+          family: string
           id?: number
           notes?: string | null
+          start_time: string
           user_id?: string
         }
         Update: {
           created_at?: string
           date?: string
-          duration?: number
+          end_time?: string
+          family?: string
           id?: number
           notes?: string | null
+          start_time?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "time_log_family_fkey"
+            columns: ["family"]
+            isOneToOne: false
+            referencedRelation: "family_surname"
+            referencedColumns: ["surname"]
+          },
+        ]
       }
     }
     Views: {
