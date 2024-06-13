@@ -92,7 +92,7 @@ export function UpdateEntrySheet({
     >
       <SheetContent className="flex flex-col gap-6 sm:max-w-md overflow-y-scroll max-h-screen">
         <SheetHeader className="text-left">
-          <SheetTitle>Update timeLogEntry</SheetTitle>
+          <SheetTitle>Update time log entry</SheetTitle>
           <SheetDescription>
             Update the time log details and save the changes.
           </SheetDescription>
@@ -107,7 +107,10 @@ export function UpdateEntrySheet({
               name="date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Date</FormLabel>
+                  <FormDescription>
+                    The date when the time log entry was created.
+                  </FormDescription>
                   <FormControl>
                     <Input {...field} type="date" />
                   </FormControl>
@@ -137,6 +140,9 @@ export function UpdateEntrySheet({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Start time</FormLabel>
+                  <FormDescription>
+                    The time when the time log entry started.
+                  </FormDescription>
                   <Input {...field} type="time" />
                   <FormMessage />
                 </FormItem>
@@ -148,6 +154,9 @@ export function UpdateEntrySheet({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>End time</FormLabel>
+                  <FormDescription>
+                    The time when the time log entry ended.
+                  </FormDescription>
                   <Input {...field} type="time" />
                   <FormMessage />
                 </FormItem>
@@ -159,8 +168,13 @@ export function UpdateEntrySheet({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Family</FormLabel>
+                  <FormDescription>
+                    The family for which the time log entry was created. If the
+                    family is not listed, you can add a new family.
+                  </FormDescription>
                   <Select
                     onValueChange={(value) => {
+                      console.log(`value`, value);
                       if (value === "new") {
                         setIsAddingNewFamily(true);
                       } else {
@@ -170,7 +184,7 @@ export function UpdateEntrySheet({
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="capitalize">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select a family" />
                       </SelectTrigger>
                     </FormControl>
@@ -206,7 +220,12 @@ export function UpdateEntrySheet({
                       <Input
                         placeholder="Enter new family name"
                         value={newFamily}
-                        onChange={(e) => setNewFamily(e.target.value)}
+                        onChange={(event) => {
+                          setNewFamily(event.target.value);
+                          field.onChange({
+                            target: { value: event.target.value },
+                          });
+                        }}
                       />
                     </div>
                   )}
@@ -220,6 +239,9 @@ export function UpdateEntrySheet({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Notes</FormLabel>
+                  <FormDescription>
+                    Any additional notes or comments about the time log entry.
+                  </FormDescription>
                   <Textarea {...field} />
                   <FormMessage />
                 </FormItem>
