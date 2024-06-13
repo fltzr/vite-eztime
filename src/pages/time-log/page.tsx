@@ -30,7 +30,7 @@ export const TimeLogPage = () => {
   });
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="mx-28 py-10">
       <DataTable columns={columns} data={processedData} />
     </div>
   );
