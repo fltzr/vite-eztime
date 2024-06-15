@@ -35,6 +35,8 @@ export const TimeLogPage = () => {
     <div className="mx-28 my-16 space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <TotalAmountEarnedCard />
+        {/* Total hours worked */}
+        {/*  */}
       </div>
       <DataTable columns={columns} data={processedData} />
     </div>

@@ -4,7 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 const GlobalLayout = () => {
   return (
-    <div className="bg-black h-full overflow-hidden relative z-0">
+    <div className="bg-[#F5F5F5] h-full overflow-hidden relative z-0">
       <GlobalHeader />
       <div
         className={`flex mx-2 mb-2 mt-[60px] dark:bg-black h-[calc(100%-60px)]`}

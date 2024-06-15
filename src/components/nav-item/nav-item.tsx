@@ -15,10 +15,9 @@ export const NavItem = ({
     <Link
       to={href}
       className={clsx(
-        "flex items-center gap-3 rounded-lg  px-3 py-2 my-[0.5px] dark:hover:text-primary",
+        "flex items-center gap-3 rounded-lg  px-3 py-2 my-[0.5px] hover:text-black hover:bg-muted/90",
         {
-          "bg-gray-100 dark:bg-muted/30 dark:text-primary":
-            route.pathname === href,
+          "bg-muted/90 text-black/80": route.pathname === href,
         }
       )}
     >

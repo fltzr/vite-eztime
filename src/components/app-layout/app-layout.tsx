@@ -7,7 +7,7 @@ const AppLayout = () => {
   return (
     <>
       <AppSidebar />
-      <main className="flex-grow h-full overflow-auto bg-muted/50 rounded-r-lg">
+      <main className="flex-grow h-full overflow-auto bg-white rounded-r-lg">
         <AppHeader />
         <Outlet />
       </main>

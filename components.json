@@ -6,7 +6,8 @@
   "tailwind": {
     "config": "tailwind.config.ts",
     "css": "src/index.css",
-    "baseColor": "slate",
+    "style": "new-york",
+    "baseColor": "zinc",
     "cssVariables": true
   },
   "aliases": {
