@@ -101,12 +101,10 @@ export function DataTableRowActions<TData>({
             <DialogHeader>Delete Entry</DialogHeader>
             <DialogClose />
           </DialogHeader>
-          <DialogContent>
-            <DialogDescription>
-              Are you sure you want to delete this entry? This action cannot be
-              undone.
-            </DialogDescription>
-          </DialogContent>
+          <DialogDescription>
+            Are you sure you want to delete this entry? This action cannot be
+            undone.
+          </DialogDescription>
           <DialogFooter>
             <Button
               disabled={deleteTimeLogEntry.isPending}

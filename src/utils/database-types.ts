@@ -29,6 +29,7 @@ export type Database = {
       }
       time_log: {
         Row: {
+          amount_earned_euros_cents: number
           created_at: string
           date: string
           end_time: string
@@ -40,6 +41,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          amount_earned_euros_cents: number
           created_at?: string
           date?: string
           end_time: string
@@ -51,6 +53,7 @@ export type Database = {
           user_id?: string
         }
         Update: {
+          amount_earned_euros_cents?: number
           created_at?: string
           date?: string
           end_time?: string
@@ -71,12 +74,58 @@ export type Database = {
           },
         ]
       }
+      time_log_TEST: {
+        Row: {
+          amount_earned: number | null
+          created_at: string | null
+          date: string | null
+          end_time: string | null
+          family: string | null
+          hourly_rate_euros_cents: number | null
+          id: number
+          notes: string | null
+          start_time: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount_earned?: number | null
+          created_at?: string | null
+          date?: string | null
+          end_time?: string | null
+          family?: string | null
+          hourly_rate_euros_cents?: number | null
+          id: number
+          notes?: string | null
+          start_time?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount_earned?: number | null
+          created_at?: string | null
+          date?: string | null
+          end_time?: string | null
+          family?: string | null
+          hourly_rate_euros_cents?: number | null
+          id?: number
+          notes?: string | null
+          start_time?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      calculate_amount_earned: {
+        Args: {
+          hourly_rate: number
+          start_time: string
+          end_time: string
+        }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

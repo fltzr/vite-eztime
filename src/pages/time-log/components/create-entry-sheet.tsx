@@ -38,6 +38,7 @@ import { toast } from "sonner";
 import { useCreateTimeLogEntry } from "../data-access/time-log";
 import { supabase } from "@/utils/supabase-client";
 import { useGetFamilies } from "../data-access/family";
+import { calculateEarnings } from "../utils/calculate-amount-earned";
 
 interface CreateEntrySheetProps
   extends React.ComponentPropsWithRef<typeof Sheet> {}
@@ -53,6 +54,9 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
     resolver: zodResolver(createTimeLogSchema),
     defaultValues: {
       date: format(new Date(), "yyyy-MM-dd"),
+      hourlyRate: 0,
+      startTime: "",
+      endTime: "",
     },
   });
 
@@ -264,6 +268,20 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               )}
             />
             <SheetFooter className="gap-2 pt-2 sm:space-x-0">
+              <SheetDescription>
+                The estimated amount earned for this time log entry is{" "}
+                <span className="font-semibold">
+                  €{" "}
+                  {form.watch("hourlyRate") &&
+                    form.watch("startTime") &&
+                    form.watch("endTime") &&
+                    calculateEarnings(
+                      `${form.watch("startTime")}:00`,
+                      `${form.watch("endTime")}:00`,
+                      form.watch("hourlyRate")
+                    )}
+                </span>
+              </SheetDescription>
               <SheetClose asChild>
                 <div className="w-full grid gap-6">
                   <Button

@@ -1,3 +1,4 @@
+import { type Duration, DateTime } from "luxon";
 import { differenceInMinutes, parse, addDays } from "date-fns";
 
 // Function to calculate the total elapsed time between start and end times
@@ -24,10 +25,29 @@ export const calculateAmountEarned = (
 
   const amountEarned = hours * hourlyRate + (minutes / 60) * hourlyRate;
 
-  console.log("hourlyRate", hourlyRate);
-  console.log("startDate", startDate);
-  console.log("endDate", endDate);
-  console.log("differenceInMins", differenceInMins);
-
   return amountEarned.toFixed(2);
+};
+
+export const calculateEarnings = (
+  startTime: string,
+  endTime: string,
+  hourlyRate: number
+) => {
+  console.log("startTime: ", startTime);
+  console.log("endTime: ", endTime);
+  console.log("hourlyRate: ", hourlyRate);
+  let duration: Duration;
+  const start = DateTime.fromFormat(startTime, "HH:mm:ss");
+  const end = DateTime.fromFormat(endTime, "HH:mm:ss");
+
+  if (end < start) {
+    const nextDayEnd = end.plus({ days: 1 });
+    duration = nextDayEnd.diff(start, "hours");
+  } else {
+    duration = end.diff(start, "hours");
+  }
+
+  const timeWorked = Number(duration.as("hours").toFixed(2));
+
+  return (timeWorked * hourlyRate).toFixed(2);
 };

@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { supabase } from "@/utils/supabase-client";
 import type { CreateTimeLog, UpdateTimeLog } from "../schema";
+import { calculateEarnings } from "../utils/calculate-amount-earned";
 
 const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
   const { id, hourlyRate, startTime, endTime, ...rest } = entry;
@@ -42,7 +43,13 @@ const createTimeLogEntry = async (entry: CreateTimeLog) => {
     hourly_rate_euros_cents: hourlyRate * 100,
     start_time: startTime,
     end_time: endTime,
+    amount_earned_euros_cents:
+      parseFloat(
+        calculateEarnings(`${startTime}:00`, `${endTime}:00`, hourlyRate)
+      ) * 100,
   };
+
+  console.log(`createTimeLogEntry: ${JSON.stringify(dbEntry)}`);
 
   const response = await supabase.from("time_log").insert(dbEntry);
 
@@ -65,11 +72,21 @@ const deleteTimeLogEntry = async (id: number) => {
   return error;
 };
 
+const getTotalEarned = async () => {
+  const response = await supabase
+    .from("time_log")
+    .select("amount_earned_euros_cents");
+
+  return response;
+};
+
 export const useGetTimeLogEntries = () =>
   useQuery({
     queryKey: ["time-log-entries"],
     queryFn: getTimeLogEntries,
     retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 
 export const useCreateTimeLogEntry = () =>
@@ -88,4 +105,13 @@ export const useDeleteTimeLogEntry = () =>
   useMutation({
     mutationFn: deleteTimeLogEntry,
     retry: false,
+  });
+
+export const useGetTotalEarned = () =>
+  useQuery({
+    queryKey: ["time-log-entries", "total-earned"],
+    queryFn: getTotalEarned,
+    retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });

@@ -5,7 +5,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { type TimeLog } from "../schema";
 import { DataTableColumnHeader } from "./data-table/data-table-column-header";
 import { DataTableRowActions } from "./data-table/data-table-row-actions";
-import { calculateAmountEarned } from "../utils/calculate-amount-earned";
 
 export const columns: ColumnDef<TimeLog>[] = [
   {
@@ -117,12 +116,7 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            €{" "}
-            {calculateAmountEarned(
-              row.getValue("hourlyRate"),
-              row.getValue("startTime"),
-              row.getValue("endTime")
-            )}
+            € {row.getValue<number>("amountEarned").toFixed(2)}
           </span>
         </div>
       );

@@ -25,7 +25,7 @@ export const timeLogSchema = z.object({
 
 export const createTimeLogSchema = timeLogSchema
   .omit({ id: true, user_id: true })
-  .partial({ notes: true });
+  .partial({ notes: true, amountEarned: true });
 
 export const updateTimeLogSchema = timeLogSchema.partial().extend({
   id: z.number(),
