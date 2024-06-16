@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { BadgeSwissFrancIcon, LoaderCircleIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetTotalEarned } from "../../data-access/time-log";
+import { BadgeSwissFrancIcon, LoaderCircleIcon } from "lucide-react";
 
-export const TotalAmountEarnedCard = () => {
+export const WeeklyAmountEarnedCard = () => {
   const timeLogData = useGetTotalEarned();
   const [totalAmountEarned, setTotalAmountEarned] = useState<
     number | undefined
@@ -27,7 +27,9 @@ export const TotalAmountEarnedCard = () => {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">Total earned</CardTitle>
+        <CardTitle className="text-sm font-medium">
+          Total earned this week
+        </CardTitle>
         <BadgeSwissFrancIcon />
       </CardHeader>
       <CardContent>

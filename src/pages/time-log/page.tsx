@@ -5,6 +5,7 @@ import { useGetTimeLogEntries } from "./data-access/time-log";
 import { DataTable } from "./components/data-table/data-table";
 import { CreateEntrySheet } from "./components/create-entry-sheet";
 import { TotalAmountEarnedCard } from "./components/cards/total-amount-earned";
+import { TotalHoursWorkedCard } from "./components/cards/total-hours-worked";
 
 export const TimeLogPage = () => {
   const { data = [] } = useGetTimeLogEntries();
@@ -35,8 +36,7 @@ export const TimeLogPage = () => {
     <div className="mx-28 my-16 space-y-4">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <TotalAmountEarnedCard />
-        {/* Total hours worked */}
-        {/*  */}
+        <TotalHoursWorkedCard />
       </div>
       <DataTable columns={columns} data={processedData} />
     </div>
