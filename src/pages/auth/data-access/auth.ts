@@ -1,6 +1,6 @@
 import type { SignInWithPasswordCredentials } from '@supabase/supabase-js';
 import { useMutation } from '@tanstack/react-query';
-import { supabase } from '../../../utils/supabase-client';
+import { supabase } from '@/utils/supabase-client';
 
 const submitSignIn = async (data: SignInWithPasswordCredentials) => {
   const signInResponse = await supabase.auth.signInWithPassword(data);

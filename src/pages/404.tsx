@@ -1,3 +1,4 @@
+import { ArrowLeftIcon } from 'lucide-react';
 import { GlobalHeader } from '@/components/global-layout/global-header';
 import { Button } from '@/components/ui/button';
 import {
@@ -7,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { ArrowLeftIcon } from 'lucide-react';
 
 export const NotFoundPage = () => {
   return (

@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '../../../components/ui/input';
-import { Button } from '../../../components/ui/button';
+
+import { type SigninFormSchema, signinFormSchema } from '../schema';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -9,10 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '../../../components/ui/form';
-import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
-import { SigninFormSchema, signinFormSchema } from '../schema';
+} from '@/components/ui/form';
 
 type SigninFormProps = {
   onSubmit: (data: SigninFormSchema) => Promise<void>;

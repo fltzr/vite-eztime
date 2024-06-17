@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { supabase } from '@/utils/supabase-client';
-import type { CreateTimeLog, UpdateTimeLog } from '../schema';
 import { calculateEarnings } from '../utils/calculate-amount-earned';
+import type { CreateTimeLog, UpdateTimeLog } from '../schema';
 
 const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
   const { id, hourlyRate, startTime, endTime, ...rest } = entry;

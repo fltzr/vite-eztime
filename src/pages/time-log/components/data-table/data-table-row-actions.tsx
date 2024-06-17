@@ -1,5 +1,8 @@
-import { DotsHorizontalIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { useState } from 'react';
+import { toast } from 'sonner';
 import { Row } from '@tanstack/react-table';
+import { useQueryClient } from '@tanstack/react-query';
+import { DotsHorizontalIcon, ReloadIcon } from '@radix-ui/react-icons';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -10,10 +13,6 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-import { timeLogSchema } from '../../schema';
-import { useState } from 'react';
-import { UpdateEntrySheet } from '../update-entry-sheet';
 import {
   Dialog,
   DialogFooter,
@@ -23,9 +22,9 @@ import {
   DialogDescription,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { timeLogSchema } from '../../schema';
+import { UpdateEntrySheet } from '../update-entry-sheet';
 import { useDeleteTimeLogEntry } from '../../data-access/time-log';
-import { toast } from 'sonner';
-import { useQueryClient } from '@tanstack/react-query';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

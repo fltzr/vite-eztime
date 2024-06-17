@@ -1,10 +1,12 @@
-import * as React from 'react';
-
+import { type ComponentPropsWithRef, useTransition, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useEffectOnce } from 'react-use';
+import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CrossCircledIcon, ReloadIcon } from '@radix-ui/react-icons';
-import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -34,14 +36,11 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 
 import { timeLogSchema, type TimeLog } from '../schema';
-import { Input } from '@/components/ui/input';
+
 import { useUpdateTimeLogEntry } from '../data-access/time-log';
 import { useGetFamilies } from '../data-access/family';
-import { useEffectOnce } from 'react-use';
-import { toast } from 'sonner';
 
-interface UpdateEntrySheetProps
-  extends React.ComponentPropsWithRef<typeof Sheet> {
+interface UpdateEntrySheetProps extends ComponentPropsWithRef<typeof Sheet> {
   timeLogEntry: TimeLog;
 }
 
@@ -49,9 +48,9 @@ export function UpdateEntrySheet({
   timeLogEntry,
   ...props
 }: UpdateEntrySheetProps) {
-  const [isUpdatePending] = React.useTransition();
-  const [isAddingNewFamily, setIsAddingNewFamily] = React.useState(false);
-  const [newFamily, setNewFamily] = React.useState('');
+  const [isUpdatePending] = useTransition();
+  const [isAddingNewFamily, setIsAddingNewFamily] = useState(false);
+  const [newFamily, setNewFamily] = useState('');
 
   const form = useForm<TimeLog>({
     resolver: zodResolver(timeLogSchema),

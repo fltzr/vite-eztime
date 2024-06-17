@@ -1,9 +1,13 @@
-import * as React from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { CrossCircledIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { type ComponentPropsWithRef, useTransition, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CrossCircledIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { toast } from 'sonner';
+
+import { supabase } from '@/utils/supabase-client';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Form,
   FormControl,
@@ -33,20 +37,17 @@ import {
 } from '@/components/ui/sheet';
 import { Textarea } from '@/components/ui/textarea';
 import { type CreateTimeLog, createTimeLogSchema } from '../schema';
-import { Input } from '@/components/ui/input';
-import { toast } from 'sonner';
+
 import { useCreateTimeLogEntry } from '../data-access/time-log';
-import { supabase } from '@/utils/supabase-client';
 import { useGetFamilies } from '../data-access/family';
 import { calculateEarnings } from '../utils/calculate-amount-earned';
 
-interface CreateEntrySheetProps
-  extends React.ComponentPropsWithRef<typeof Sheet> {}
+interface CreateEntrySheetProps extends ComponentPropsWithRef<typeof Sheet> {}
 
 export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
-  const [isUpdatePending] = React.useTransition();
-  const [isAddingNewFamily, setIsAddingNewFamily] = React.useState(false);
-  const [newFamily, setNewFamily] = React.useState('');
+  const [isUpdatePending] = useTransition();
+  const [isAddingNewFamily, setIsAddingNewFamily] = useState(false);
+  const [newFamily, setNewFamily] = useState('');
 
   const families = useGetFamilies();
 

@@ -1,6 +1,7 @@
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
-import { requireAuthLoader } from './utils/require-auth-loader';
+
 import { NotFoundPage } from './pages/404';
+import { requireAuthLoader } from './utils/require-auth-loader';
 
 export const routes: RouteObject[] = [
   {

@@ -1,5 +1,7 @@
 import { useEffectOnce } from 'react-use';
-import { useAppHeaderStore } from '../../store/use-app-header-store';
+
+import { useAppHeaderStore } from '@/store/use-app-header-store';
+
 import { columns } from './components/time-log-columns';
 import { useGetTimeLogEntries } from './data-access/time-log';
 import { DataTable } from './components/data-table/data-table';
