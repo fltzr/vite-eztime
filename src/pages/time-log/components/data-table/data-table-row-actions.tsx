@@ -1,7 +1,7 @@
-import { DotsHorizontalIcon, ReloadIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
+import { DotsHorizontalIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,11 +9,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
-import { timeLogSchema } from "../../schema";
-import { useState } from "react";
-import { UpdateEntrySheet } from "../update-entry-sheet";
+import { timeLogSchema } from '../../schema';
+import { useState } from 'react';
+import { UpdateEntrySheet } from '../update-entry-sheet';
 import {
   Dialog,
   DialogFooter,
@@ -22,10 +22,10 @@ import {
   DialogContent,
   DialogDescription,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { useDeleteTimeLogEntry } from "../../data-access/time-log";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
+} from '@/components/ui/dialog';
+import { useDeleteTimeLogEntry } from '../../data-access/time-log';
+import { toast } from 'sonner';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -42,13 +42,13 @@ export function DataTableRowActions<TData>({
   const entry = timeLogSchema.parse(row.original);
 
   const handleOnDelete = async () => {
-    console.log("Delete entry", entry);
+    console.log('Delete entry', entry);
 
     try {
       await deleteTimeLogEntry.mutateAsync(entry.id);
 
-      console.log("Entry deleted successfully!");
-      toast.info("Entry deleted successfully!");
+      console.log('Entry deleted successfully!');
+      toast.info('Entry deleted successfully!');
       setShowDeleteModal(false);
     } catch (error) {
       toast.error(`Failed to delete entry! Please try again!\n${error}`);
@@ -82,7 +82,7 @@ export function DataTableRowActions<TData>({
             <DropdownMenuItem
               onSelect={() => {
                 setShowUpdateEntrySheet(true);
-                queryClient.refetchQueries({ queryKey: ["families"] });
+                queryClient.refetchQueries({ queryKey: ['families'] });
               }}
             >
               Edit

@@ -1,11 +1,11 @@
-import { useEffectOnce } from "react-use";
-import { useAppHeaderStore } from "../../store/use-app-header-store";
-import { columns } from "./components/time-log-columns";
-import { useGetTimeLogEntries } from "./data-access/time-log";
-import { DataTable } from "./components/data-table/data-table";
-import { CreateEntrySheet } from "./components/create-entry-sheet";
-import { TotalAmountEarnedCard } from "./components/cards/total-amount-earned";
-import { TotalHoursWorkedCard } from "./components/cards/total-hours-worked";
+import { useEffectOnce } from 'react-use';
+import { useAppHeaderStore } from '../../store/use-app-header-store';
+import { columns } from './components/time-log-columns';
+import { useGetTimeLogEntries } from './data-access/time-log';
+import { DataTable } from './components/data-table/data-table';
+import { CreateEntrySheet } from './components/create-entry-sheet';
+import { TotalAmountEarnedCard } from './components/cards/total-amount-earned';
+import { TotalHoursWorkedCard } from './components/cards/total-hours-worked';
 
 export const TimeLogPage = () => {
   const { data = [] } = useGetTimeLogEntries();
@@ -19,7 +19,7 @@ export const TimeLogPage = () => {
     endTime: entry.end_time,
     hourlyRate: entry.hourly_rate_euros_cents / 100,
     amountEarned: (entry.amount_earned_euros_cents ?? 0) / 100,
-    notes: entry.notes ?? "",
+    notes: entry.notes ?? '',
   }));
 
   const { setRightContent, clearHeader } = useAppHeaderStore();

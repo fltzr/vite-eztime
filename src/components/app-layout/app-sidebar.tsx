@@ -1,5 +1,5 @@
-import { GearIcon, CountdownTimerIcon } from "@radix-ui/react-icons";
-import { NavItem } from "../nav-item/nav-item";
+import { GearIcon, CountdownTimerIcon } from '@radix-ui/react-icons';
+import { NavItem } from '../nav-item/nav-item';
 
 export const AppSidebar = () => {
   return (

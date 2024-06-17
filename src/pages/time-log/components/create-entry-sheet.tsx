@@ -1,9 +1,9 @@
-import * as React from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CrossCircledIcon, ReloadIcon } from "@radix-ui/react-icons";
-import { useForm } from "react-hook-form";
-import { format } from "date-fns";
-import { Button } from "@/components/ui/button";
+import * as React from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CrossCircledIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { useForm } from 'react-hook-form';
+import { format } from 'date-fns';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -12,7 +12,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Select,
   SelectContent,
@@ -20,7 +20,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Sheet,
   SheetClose,
@@ -30,15 +30,15 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Textarea } from "@/components/ui/textarea";
-import { type CreateTimeLog, createTimeLogSchema } from "../schema";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-import { useCreateTimeLogEntry } from "../data-access/time-log";
-import { supabase } from "@/utils/supabase-client";
-import { useGetFamilies } from "../data-access/family";
-import { calculateEarnings } from "../utils/calculate-amount-earned";
+} from '@/components/ui/sheet';
+import { Textarea } from '@/components/ui/textarea';
+import { type CreateTimeLog, createTimeLogSchema } from '../schema';
+import { Input } from '@/components/ui/input';
+import { toast } from 'sonner';
+import { useCreateTimeLogEntry } from '../data-access/time-log';
+import { supabase } from '@/utils/supabase-client';
+import { useGetFamilies } from '../data-access/family';
+import { calculateEarnings } from '../utils/calculate-amount-earned';
 
 interface CreateEntrySheetProps
   extends React.ComponentPropsWithRef<typeof Sheet> {}
@@ -46,17 +46,17 @@ interface CreateEntrySheetProps
 export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
   const [isUpdatePending] = React.useTransition();
   const [isAddingNewFamily, setIsAddingNewFamily] = React.useState(false);
-  const [newFamily, setNewFamily] = React.useState("");
+  const [newFamily, setNewFamily] = React.useState('');
 
   const families = useGetFamilies();
 
   const form = useForm<CreateTimeLog>({
     resolver: zodResolver(createTimeLogSchema),
     defaultValues: {
-      date: format(new Date(), "yyyy-MM-dd"),
+      date: format(new Date(), 'yyyy-MM-dd'),
       hourlyRate: 0,
-      startTime: "",
-      endTime: "",
+      startTime: '',
+      endTime: '',
     },
   });
 
@@ -67,11 +67,11 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
 
     if (isAddingNewFamily) {
       const { error } = await supabase
-        .from("family_surname")
+        .from('family_surname')
         .insert([{ surname: newFamily }]);
 
       if (error) {
-        toast.error("Failed to add new family 😔. Please try again later!");
+        toast.error('Failed to add new family 😔. Please try again later!');
         return;
       }
 
@@ -81,19 +81,19 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
     const { error } = await createTimeLog.mutateAsync(input);
 
     if (error) {
-      toast.error("Failed to update time log entry 😔. Please let Josh know!");
+      toast.error('Failed to update time log entry 😔. Please let Josh know!');
       return;
     }
 
     form.reset({
-      date: format(new Date(), "yyyy-MM-dd"),
-      startTime: "",
-      endTime: "",
-      family: "",
-      notes: "",
+      date: format(new Date(), 'yyyy-MM-dd'),
+      startTime: '',
+      endTime: '',
+      family: '',
+      notes: '',
     });
 
-    toast.success("Time log entry added successfully! 🎉");
+    toast.success('Time log entry added successfully! 🎉');
   };
 
   return (
@@ -195,7 +195,7 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
                   <Select
                     onValueChange={(value) => {
                       console.log(`value`, value);
-                      if (value === "new") {
+                      if (value === 'new') {
                         setIsAddingNewFamily(true);
                       } else {
                         field.onChange(value);
@@ -232,7 +232,7 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
                         size="icon"
                         onClick={() => {
                           setIsAddingNewFamily(false);
-                          form.reset({ family: "" });
+                          form.reset({ family: '' });
                         }}
                       >
                         <CrossCircledIcon />
@@ -269,16 +269,16 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
             />
             <SheetFooter className="gap-2 pt-2 sm:space-x-0">
               <SheetDescription>
-                The estimated amount earned for this time log entry is{" "}
+                The estimated amount earned for this time log entry is{' '}
                 <span className="font-semibold">
-                  ₣{" "}
-                  {form.watch("hourlyRate") &&
-                    form.watch("startTime") &&
-                    form.watch("endTime") &&
+                  ₣{' '}
+                  {form.watch('hourlyRate') &&
+                    form.watch('startTime') &&
+                    form.watch('endTime') &&
                     calculateEarnings(
-                      `${form.watch("startTime")}:00`,
-                      `${form.watch("endTime")}:00`,
-                      form.watch("hourlyRate")
+                      `${form.watch('startTime')}:00`,
+                      `${form.watch('endTime')}:00`,
+                      form.watch('hourlyRate')
                     )}
                 </span>
               </SheetDescription>
@@ -289,11 +289,11 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
                     variant="outline"
                     onClick={() => {
                       form.reset({
-                        date: format(new Date(), "yyyy-MM-dd"),
-                        startTime: "",
-                        endTime: "",
-                        family: "",
-                        notes: "",
+                        date: format(new Date(), 'yyyy-MM-dd'),
+                        startTime: '',
+                        endTime: '',
+                        family: '',
+                        notes: '',
                       });
                     }}
                   >

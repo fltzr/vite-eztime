@@ -1,15 +1,15 @@
-import { supabase } from "@/utils/supabase-client";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { supabase } from '@/utils/supabase-client';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 const getFamilies = async () => {
-  const response = await supabase.from("family_surname").select("*");
+  const response = await supabase.from('family_surname').select('*');
 
   return response;
 };
 
 const addFamily = async (name: string) => {
   const response = await supabase
-    .from("family_surname")
+    .from('family_surname')
     .insert({ surname: name });
 
   return response;
@@ -17,7 +17,7 @@ const addFamily = async (name: string) => {
 
 export const useGetFamilies = () =>
   useQuery({
-    queryKey: ["families"],
+    queryKey: ['families'],
     queryFn: getFamilies,
     retry: false,
     enabled: false,

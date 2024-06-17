@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Clock9Icon, LoaderCircleIcon } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetTimeLogEntries } from "../../data-access/time-log";
-import { calculateDuration } from "../../utils/calculate-amount-earned";
+import { useEffect, useState } from 'react';
+import { Clock9Icon, LoaderCircleIcon } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useGetTimeLogEntries } from '../../data-access/time-log';
+import { calculateDuration } from '../../utils/calculate-amount-earned';
 
 export const TotalHoursWorkedCard = () => {
   const timeLogData = useGetTimeLogEntries();
@@ -16,7 +16,7 @@ export const TotalHoursWorkedCard = () => {
         return calculateDuration(entry.start_time, entry.end_time);
       });
 
-      console.log("hoursWorkedArray", hoursWorkedArray);
+      console.log('hoursWorkedArray', hoursWorkedArray);
 
       const hours = hoursWorkedArray?.reduce((acc, curr) => acc + curr, 0);
 
@@ -45,7 +45,6 @@ export const TotalHoursWorkedCard = () => {
             </div>
           )}
         </div>
-        {/* <p className="text-xs text-muted-foreground">+20.1% from last month</p> */}
       </CardContent>
     </Card>
   );

@@ -1,19 +1,19 @@
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from '@tanstack/react-table';
 
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from '@/components/ui/checkbox';
 
-import { type TimeLog } from "../schema";
-import { DataTableColumnHeader } from "./data-table/data-table-column-header";
-import { DataTableRowActions } from "./data-table/data-table-row-actions";
+import { type TimeLog } from '../schema';
+import { DataTableColumnHeader } from './data-table/data-table-column-header';
+import { DataTableRowActions } from './data-table/data-table-row-actions';
 
 export const columns: ColumnDef<TimeLog>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -32,7 +32,7 @@ export const columns: ColumnDef<TimeLog>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "date",
+    accessorKey: 'date',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Date" />
     ),
@@ -40,14 +40,14 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("date")}
+            {row.getValue('date')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "family",
+    accessorKey: 'family',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Family" />
     ),
@@ -55,14 +55,14 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("family")}
+            {row.getValue('family')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "hourlyRate",
+    accessorKey: 'hourlyRate',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Hourly rate" />
     ),
@@ -70,7 +70,7 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[100px] truncate font-medium">
-            ₣ {row.getValue("hourlyRate")}
+            ₣ {row.getValue('hourlyRate')}
           </span>
         </div>
       );
@@ -78,7 +78,7 @@ export const columns: ColumnDef<TimeLog>[] = [
     maxSize: 125,
   },
   {
-    accessorKey: "startTime",
+    accessorKey: 'startTime',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Start time" />
     ),
@@ -86,14 +86,14 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("startTime")}
+            {row.getValue('startTime')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "endTime",
+    accessorKey: 'endTime',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="End time" />
     ),
@@ -101,14 +101,14 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("endTime")}
+            {row.getValue('endTime')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "amountEarned",
+    accessorKey: 'amountEarned',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Amount earned" />
     ),
@@ -116,14 +116,14 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            ₣ {row.getValue<number>("amountEarned").toFixed(2)}
+            ₣ {row.getValue<number>('amountEarned').toFixed(2)}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "notes",
+    accessorKey: 'notes',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Notes" />
     ),
@@ -131,14 +131,14 @@ export const columns: ColumnDef<TimeLog>[] = [
       return (
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
-            {row.getValue("notes")}
+            {row.getValue('notes')}
           </span>
         </div>
       );
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
 ];

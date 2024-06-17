@@ -1,5 +1,5 @@
-import { type UIMatch, useMatches } from "react-router-dom";
-import { useAppHeaderStore } from "src/store/use-app-header-store";
+import { type UIMatch, useMatches } from 'react-router-dom';
+import { useAppHeaderStore } from 'src/store/use-app-header-store';
 
 export const AppHeader = () => {
   const matches = useMatches() as UIMatch<unknown, { title?: string }>[];

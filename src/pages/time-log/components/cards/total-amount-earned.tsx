@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { BadgeSwissFrancIcon, LoaderCircleIcon } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetTotalEarned } from "../../data-access/time-log";
+import { useEffect, useState } from 'react';
+import { BadgeSwissFrancIcon, LoaderCircleIcon } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useGetTotalEarned } from '../../data-access/time-log';
 
 export const TotalAmountEarnedCard = () => {
   const timeLogData = useGetTotalEarned();

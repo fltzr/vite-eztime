@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import "@tanstack/react-query";
-import type { QueryKey } from "@tanstack/react-query";
+import '@tanstack/react-query';
+import type { QueryKey } from '@tanstack/react-query';
 
 declare global {
   type Prettify<T> = {
@@ -9,11 +9,11 @@ declare global {
   } & {};
 }
 
-declare module "@tanstack/react-query" {
+declare module '@tanstack/react-query' {
   interface Register {
     mutationMeta: {
       invalidates?: Array<QueryKey>;
-      operation?: "INSERT" | "UPDATE" | "DELETE";
+      operation?: 'INSERT' | 'UPDATE' | 'DELETE';
     };
   }
 }

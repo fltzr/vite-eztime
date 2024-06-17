@@ -1,7 +1,7 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { supabase } from "@/utils/supabase-client";
-import type { CreateTimeLog, UpdateTimeLog } from "../schema";
-import { calculateEarnings } from "../utils/calculate-amount-earned";
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { supabase } from '@/utils/supabase-client';
+import type { CreateTimeLog, UpdateTimeLog } from '../schema';
+import { calculateEarnings } from '../utils/calculate-amount-earned';
 
 const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
   const { id, hourlyRate, startTime, endTime, ...rest } = entry;
@@ -23,7 +23,7 @@ const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
   // Remove keys with undefined or empty string values
   Object.keys(transformedData).forEach(
     (key) =>
-      (transformedData[key] === undefined || transformedData[key] === "") &&
+      (transformedData[key] === undefined || transformedData[key] === '') &&
       delete transformedData[key]
   );
 
@@ -31,7 +31,7 @@ const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
 };
 
 const getTimeLogEntries = async () => {
-  const timelogEntriesResponse = await supabase.from("time_log").select("*");
+  const timelogEntriesResponse = await supabase.from('time_log').select('*');
 
   return timelogEntriesResponse.data ?? [];
 };
@@ -51,7 +51,7 @@ const createTimeLogEntry = async (entry: CreateTimeLog) => {
 
   console.log(`createTimeLogEntry: ${JSON.stringify(dbEntry)}`);
 
-  const response = await supabase.from("time_log").insert(dbEntry);
+  const response = await supabase.from('time_log').insert(dbEntry);
 
   return response;
 };
@@ -59,30 +59,30 @@ const createTimeLogEntry = async (entry: CreateTimeLog) => {
 const updateTimeLogEntry = async (entry: UpdateTimeLog) => {
   const { id, ...updatedData } = transformUpdateTimeLog(entry);
   const response = await supabase
-    .from("time_log")
+    .from('time_log')
     .update(updatedData)
-    .eq("id", id);
+    .eq('id', id);
 
   return response;
 };
 
 const deleteTimeLogEntry = async (id: number) => {
-  const { error } = await supabase.from("time_log").delete().eq("id", id);
+  const { error } = await supabase.from('time_log').delete().eq('id', id);
 
   return error;
 };
 
 const getTotalEarned = async () => {
   const response = await supabase
-    .from("time_log")
-    .select("amount_earned_euros_cents");
+    .from('time_log')
+    .select('amount_earned_euros_cents');
 
   return response;
 };
 
 export const useGetTimeLogEntries = () =>
   useQuery({
-    queryKey: ["time-log-entries"],
+    queryKey: ['time-log-entries'],
     queryFn: getTimeLogEntries,
     retry: false,
     refetchOnWindowFocus: false,
@@ -109,7 +109,7 @@ export const useDeleteTimeLogEntry = () =>
 
 export const useGetTotalEarned = () =>
   useQuery({
-    queryKey: ["time-log-entries", "total-earned"],
+    queryKey: ['time-log-entries', 'total-earned'],
     queryFn: getTotalEarned,
     retry: false,
     refetchOnWindowFocus: false,

@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CrossCircledIcon, ReloadIcon } from "@radix-ui/react-icons";
-import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CrossCircledIcon, ReloadIcon } from '@radix-ui/react-icons';
+import { useForm } from 'react-hook-form';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Select,
   SelectContent,
@@ -21,7 +21,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Sheet,
   SheetClose,
@@ -30,15 +30,15 @@ import {
   SheetFooter,
   SheetHeader,
   SheetTitle,
-} from "@/components/ui/sheet";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/sheet';
+import { Textarea } from '@/components/ui/textarea';
 
-import { timeLogSchema, type TimeLog } from "../schema";
-import { Input } from "@/components/ui/input";
-import { useUpdateTimeLogEntry } from "../data-access/time-log";
-import { useGetFamilies } from "../data-access/family";
-import { useEffectOnce } from "react-use";
-import { toast } from "sonner";
+import { timeLogSchema, type TimeLog } from '../schema';
+import { Input } from '@/components/ui/input';
+import { useUpdateTimeLogEntry } from '../data-access/time-log';
+import { useGetFamilies } from '../data-access/family';
+import { useEffectOnce } from 'react-use';
+import { toast } from 'sonner';
 
 interface UpdateEntrySheetProps
   extends React.ComponentPropsWithRef<typeof Sheet> {
@@ -51,7 +51,7 @@ export function UpdateEntrySheet({
 }: UpdateEntrySheetProps) {
   const [isUpdatePending] = React.useTransition();
   const [isAddingNewFamily, setIsAddingNewFamily] = React.useState(false);
-  const [newFamily, setNewFamily] = React.useState("");
+  const [newFamily, setNewFamily] = React.useState('');
 
   const form = useForm<TimeLog>({
     resolver: zodResolver(timeLogSchema),
@@ -69,13 +69,13 @@ export function UpdateEntrySheet({
     const { error } = await updateTimeLogEntry.mutateAsync(input);
 
     if (error) {
-      toast.error("Failed to update time log entry 😔. Please let Josh know!");
+      toast.error('Failed to update time log entry 😔. Please let Josh know!');
       return;
     }
 
     form.reset();
     props.onOpenChange?.(false);
-    toast("Time log entry updated successfully! 🎉");
+    toast('Time log entry updated successfully! 🎉');
   };
 
   return (
@@ -85,7 +85,7 @@ export function UpdateEntrySheet({
         if (!open) {
           form.reset();
           setIsAddingNewFamily(false);
-          setNewFamily("");
+          setNewFamily('');
         }
         props.onOpenChange?.(open);
       }}
@@ -175,7 +175,7 @@ export function UpdateEntrySheet({
                   <Select
                     onValueChange={(value) => {
                       console.log(`value`, value);
-                      if (value === "new") {
+                      if (value === 'new') {
                         setIsAddingNewFamily(true);
                       } else {
                         field.onChange(value);
@@ -212,7 +212,7 @@ export function UpdateEntrySheet({
                         size="icon"
                         onClick={() => {
                           setIsAddingNewFamily(false);
-                          form.reset({ family: "" });
+                          form.reset({ family: '' });
                         }}
                       >
                         <CrossCircledIcon />

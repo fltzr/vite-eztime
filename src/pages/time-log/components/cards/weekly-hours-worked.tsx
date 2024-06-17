@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetTotalEarned } from "../../data-access/time-log";
-import { LoaderCircleIcon } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useGetTotalEarned } from '../../data-access/time-log';
+import { LoaderCircleIcon } from 'lucide-react';
 
 export const WeeklyHoursWorkedCard = () => {
   const timeLogData = useGetTotalEarned();

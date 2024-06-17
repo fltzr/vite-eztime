@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../../../components/ui/input";
-import { Button } from "../../../components/ui/button";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '../../../components/ui/input';
+import { Button } from '../../../components/ui/button';
 import {
   Form,
   FormControl,
@@ -9,10 +9,10 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
-import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
-import { SigninFormSchema, signinFormSchema } from "../schema";
+} from '../../../components/ui/form';
+import { EyeClosedIcon, EyeOpenIcon } from '@radix-ui/react-icons';
+import { useState } from 'react';
+import { SigninFormSchema, signinFormSchema } from '../schema';
 
 type SigninFormProps = {
   onSubmit: (data: SigninFormSchema) => Promise<void>;
@@ -24,8 +24,8 @@ export const SigninForm = ({ onSubmit }: SigninFormProps) => {
   const form = useForm<SigninFormSchema>({
     resolver: zodResolver(signinFormSchema),
     defaultValues: {
-      email: "juliettecorrelb@gmail.com",
-      password: "",
+      email: 'juliettecorrelb@gmail.com',
+      password: '',
     },
   });
 
@@ -51,14 +51,14 @@ export const SigninForm = ({ onSubmit }: SigninFormProps) => {
                   <div className="relative w-full">
                     <Input
                       className="pr-9"
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       placeholder="•••••••"
                       {...field}
                     />
                     <Button
                       className="absolute right-0 top-0 text-muted-foreground"
                       type="button"
-                      variant={"ghost"}
+                      variant={'ghost'}
                       size="icon"
                       onClick={(event) => {
                         event.preventDefault();

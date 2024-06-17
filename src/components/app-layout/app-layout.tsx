@@ -1,7 +1,7 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom';
 
-import { AppHeader } from "./app-header";
-import { AppSidebar } from "./app-sidebar";
+import { AppHeader } from './app-header';
+import { AppSidebar } from './app-sidebar';
 
 const AppLayout = () => {
   return (

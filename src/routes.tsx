@@ -1,15 +1,15 @@
-import { Navigate, RouteObject, createBrowserRouter } from "react-router-dom";
-import { requireAuthLoader } from "./utils/require-auth-loader";
-import { NotFoundPage } from "./pages/404";
+import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
+import { requireAuthLoader } from './utils/require-auth-loader';
+import { NotFoundPage } from './pages/404';
 
 export const routes: RouteObject[] = [
   {
-    path: "/",
-    lazy: () => import("./components/global-layout/global-layout"),
+    path: '/',
+    lazy: () => import('./components/global-layout/global-layout'),
     errorElement: <NotFoundPage />,
     children: [
       {
-        lazy: () => import("./components/app-layout/app-layout"),
+        lazy: () => import('./components/app-layout/app-layout'),
         loader: requireAuthLoader,
         errorElement: <NotFoundPage />,
         children: [
@@ -18,17 +18,17 @@ export const routes: RouteObject[] = [
             element: <Navigate to="/time" />,
           },
           {
-            path: "time",
-            lazy: () => import("./pages/time-log/page"),
+            path: 'time',
+            lazy: () => import('./pages/time-log/page'),
             handle: {
-              title: "Time log",
+              title: 'Time log',
             },
           },
         ],
       },
       {
-        path: "/signin",
-        lazy: () => import("./pages/auth/signin"),
+        path: '/signin',
+        lazy: () => import('./pages/auth/signin'),
       },
     ],
   },

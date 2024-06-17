@@ -4,13 +4,13 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { SigninForm } from "./components/signin-form";
-import { useSubmitSignin } from "./data-access/auth";
-import { SigninFormSchema } from "./schema";
-import { useAuthStore } from "src/store/use-auth-store";
-import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
+} from '@/components/ui/card';
+import { SigninForm } from './components/signin-form';
+import { useSubmitSignin } from './data-access/auth';
+import { SigninFormSchema } from './schema';
+import { useAuthStore } from 'src/store/use-auth-store';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const AuthSigninPage = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const AuthSigninPage = () => {
   const signin = useSubmitSignin();
 
   const handleOnSubmit = async (data: SigninFormSchema) => {
-    console.log("handleOnSubmit", data);
+    console.log('handleOnSubmit', data);
 
     await signin
       .mutateAsync(data)
@@ -31,13 +31,13 @@ const AuthSigninPage = () => {
           return;
         }
 
-        toast.success("Welcome back BABY! 🎉");
+        toast.success('Welcome back BABY! 🎉');
         ``;
         setUser(userData.user);
-        navigate("/");
+        navigate('/');
       })
       .catch(() => {
-        toast.error("Failed to sign in... 😢 Let Josh know!");
+        toast.error('Failed to sign in... 😢 Let Josh know!');
       });
   };
 
