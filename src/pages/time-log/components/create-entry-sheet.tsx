@@ -143,7 +143,7 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               name="hourlyRate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>(€) Hourly rate</FormLabel>
+                  <FormLabel>(₣) Hourly rate</FormLabel>
                   <FormDescription>
                     The anticipated hourly rate for this time log entry, in
                     euros. Don't worry if you are not sure, you can adjust this
@@ -271,7 +271,7 @@ export function CreateEntrySheet({ ...props }: CreateEntrySheetProps) {
               <SheetDescription>
                 The estimated amount earned for this time log entry is{" "}
                 <span className="font-semibold">
-                  €{" "}
+                  ₣{" "}
                   {form.watch("hourlyRate") &&
                     form.watch("startTime") &&
                     form.watch("endTime") &&

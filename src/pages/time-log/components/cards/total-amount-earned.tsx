@@ -33,7 +33,7 @@ export const TotalAmountEarnedCard = () => {
       <CardContent>
         <div className="text-2xl font-bold">
           {totalAmountEarned ? (
-            `€ ${(totalAmountEarned / 100).toFixed(2)}`
+            `₣ ${(totalAmountEarned / 100).toFixed(2)}`
           ) : (
             <div className="flex justify-start py-2">
               <LoaderCircleIcon

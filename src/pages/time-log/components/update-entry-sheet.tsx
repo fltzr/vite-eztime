@@ -123,7 +123,7 @@ export function UpdateEntrySheet({
               name="hourlyRate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>(€) Hourly rate</FormLabel>
+                  <FormLabel>(₣) Hourly rate</FormLabel>
                   <FormDescription>
                     The anticipated hourly rate for this time log entry, in
                     euros. Don't worry if you are not sure, you can adjust this
