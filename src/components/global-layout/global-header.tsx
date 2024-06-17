@@ -1,7 +1,21 @@
-import { GearIcon, PersonIcon } from "@radix-ui/react-icons";
-import { Link } from "react-router-dom";
-import { Button } from "../ui/button";
-import { useAuthStore } from "src/store/use-auth-store";
+import { GearIcon, PersonIcon } from '@radix-ui/react-icons';
+import { Link } from 'react-router-dom';
+import { Button } from '../ui/button';
+import { useAuthStore } from 'src/store/use-auth-store';
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '../ui/hover-card';
+import { Separator } from '../ui/separator';
+
+import { LogOutIcon } from 'lucide-react';
 
 export const GlobalHeader = () => {
   const { user } = useAuthStore();
@@ -20,12 +34,47 @@ export const GlobalHeader = () => {
         <div className="flex flex-grow-0 flex-shrink justify-end overflow-hidden relative gap-4">
           {user ? (
             <>
-              <Button variant="ghost" size="icon">
-                <GearIcon className="h-5 w-5" />
-              </Button>
-              <Button variant="outline" size="icon">
-                <PersonIcon className="h-5 w-5" />
-              </Button>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <GearIcon className="h-5 w-5" />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Settings</p>
+                </TooltipContent>
+              </Tooltip>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <PersonIcon className="h-5 w-5" />
+                  </Button>
+                </HoverCardTrigger>
+                <HoverCardContent>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-sm font-bold">Juliette C</p>
+                    <p className="text-sm text-muted-foreground">
+                      {user.email}
+                    </p>
+                    <Separator />
+                    <nav className="grid items-start px-1 text-sm font-medium">
+                      <Button
+                        variant="ghost"
+                        className="flex flex-col items-center self-start gap-3 rounded-lg hover:text-black hover:bg-muted/90"
+                      >
+                        Profile
+                      </Button>
+                      <Button
+                        variant="link"
+                        className="flex items-center gap-3 rounded-lg hover:text-black hover:bg-muted/90"
+                      >
+                        <LogOutIcon className="w-4 h-4" />
+                        <span>Logout</span>
+                      </Button>
+                    </nav>
+                  </div>
+                </HoverCardContent>
+              </HoverCard>
             </>
           ) : (
             <></>
