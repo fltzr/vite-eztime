@@ -25,6 +25,13 @@ export const routes: RouteObject[] = [
               title: 'Time log',
             },
           },
+          {
+            path: 'settings',
+            lazy: () => import('./pages/settings/page'),
+            handle: {
+              title: 'Settings',
+            },
+          },
         ],
       },
       {
