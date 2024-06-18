@@ -1,41 +1,37 @@
-import { useEffect, useState } from 'react';
 import { BadgeSwissFrancIcon, LoaderCircleIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useGetTotalEarned } from '../../data-access/time-log';
 
-export const WeeklyAmountEarnedCard = () => {
-  const timeLogData = useGetTotalEarned();
-  const [totalAmountEarned, setTotalAmountEarned] = useState<
-    number | undefined
-  >();
+type WeeklyAmountEarnedCardProps = {
+  isPending: boolean;
+  currentWeekEarnings: number;
+  percentChange: number;
+};
 
-  useEffect(() => {
-    if (timeLogData.data?.data) {
-      const amountEarnedArray = timeLogData.data.data?.map((entry) => {
-        return entry.amount_earned_euros_cents;
-      });
-
-      const totalAmountEarned = amountEarnedArray?.reduce(
-        (acc, curr) => acc + curr,
-        0
-      );
-
-      setTotalAmountEarned(totalAmountEarned);
-    }
-  }, [timeLogData.data]);
-
+export const WeeklyAmountEarnedCard = ({
+  isPending,
+  currentWeekEarnings,
+  percentChange,
+}: WeeklyAmountEarnedCardProps) => {
   return (
     <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">
-          Total earned this week
-        </CardTitle>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 text-muted-foreground">
+        <CardTitle className="text-sm font-medium">Earned this week</CardTitle>
         <BadgeSwissFrancIcon />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">
-          {totalAmountEarned ? (
-            `₣ ${(totalAmountEarned / 100).toFixed(2)}`
+          {!isPending ? (
+            <>
+              {`₣ ${(currentWeekEarnings / 100).toFixed(2)}`}
+              {percentChange > 0 ? (
+                <p className="text-xs text-muted-foreground">
+                  {percentChange > 0 ? '+' : ''}
+                  {percentChange.toFixed(1)}% from last week
+                </p>
+              ) : (
+                <> </>
+              )}
+            </>
           ) : (
             <div className="flex justify-start py-2">
               <LoaderCircleIcon

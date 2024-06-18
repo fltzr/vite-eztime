@@ -14,7 +14,8 @@ const SettingsPage = () => {
             <CardHeader>
               <CardTitle className="text-lg">Your profile</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent>Coming soon!</CardContent>
+            {/* <CardContent>
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 rounded-full bg-gray-300"></div>
@@ -58,7 +59,7 @@ const SettingsPage = () => {
                   <button className="btn">Save changes</button>
                 </div>
               </div>
-            </CardContent>
+            </CardContent> */}
           </Card>
         </TabsContent>
         <TabsContent value="user-security">
@@ -66,6 +67,7 @@ const SettingsPage = () => {
             <CardHeader>
               <CardTitle className="text-lg">Security</CardTitle>
             </CardHeader>
+            <CardContent>Coming soon!</CardContent>
           </Card>
         </TabsContent>
       </Tabs>
