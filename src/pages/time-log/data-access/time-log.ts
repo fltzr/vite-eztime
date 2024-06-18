@@ -4,7 +4,7 @@ import { calculateEarnings } from '../utils/calculate-amount-earned';
 import type { CreateTimeLog, UpdateTimeLog } from '../schema';
 
 const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
-  const { id, hourlyRate, startTime, endTime, ...rest } = entry;
+  const { id, hourlyRate, startTime, endTime, amountEarned, ...rest } = entry;
 
   // Convert startTime and endTime to start_time and end_time
   const transformedData: { [key: string]: unknown } = { ...rest };
@@ -18,6 +18,10 @@ const transformUpdateTimeLog = (entry: UpdateTimeLog) => {
   }
   if (endTime) {
     transformedData.end_time = endTime;
+  }
+
+  if (amountEarned) {
+    transformedData.amount_earned_euros_cents = amountEarned * 100;
   }
 
   // Remove keys with undefined or empty string values
